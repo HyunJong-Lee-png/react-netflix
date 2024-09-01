@@ -80,19 +80,23 @@ const Info = styled(motion.div)`
 const Arrow = styled(motion.div)`
   font-size: 30px;
   opacity: 0;
+  &>span:first-child,&>span:last-child{
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  };
   &>span:first-child{
-    position: fixed;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  };
+  }
   &>span:last-child{
-    position: fixed;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  };
-
+  }
 `;
 
 
@@ -215,7 +219,7 @@ export default function Home() {
             {movieMatch && <BigMovieContent state={state} />}
           </AnimatePresence>
           <Arrow
-           whileHover={{opacity:1}}
+            whileHover={{ opacity: 1 }}
           >
             <span onClick={increaseIndex}>&rarr;</span>
             <span onClick={decreaseIndex}>&larr;</span>
