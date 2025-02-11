@@ -204,7 +204,9 @@ export default function Header() {
           <motion.svg
             onClick={makeSearchInput}
             animate={
-              isDeskTop ? { x: clicked ? 30 : 210 } : { x: clicked ? 180 : 0 }
+              isDeskTop
+                ? { x: clicked ? 30 : 210 }
+                : { x: clicked ? "41vw" : 0 }
             }
             transition={{ ease: "linear" }}
             fill="currentColor"
@@ -219,7 +221,6 @@ export default function Header() {
           </motion.svg>
           <Input
             initial={{ scaleX: 0 }}
-            // animate={{ scaleX: clicked ? 1 : 0 }}
             animate={
               isDeskTop
                 ? {
@@ -231,6 +232,7 @@ export default function Header() {
                     transformOrigin: clicked ? "center left" : "center left",
                     translateX: clicked ? -30 : 0,
                     paddingLeft: clicked ? 0 : 0,
+                    width: clicked && "40vw",
                   }
             }
             transition={{ ease: "linear" }}
