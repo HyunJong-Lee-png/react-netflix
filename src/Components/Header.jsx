@@ -86,6 +86,7 @@ const Input = styled(motion.input)`
   background-color: transparent;
   padding-left: 30px;
   color: white;
+  border-radius: 10px;
 `;
 
 const Button = styled(motion.button)`
