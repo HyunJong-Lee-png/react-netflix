@@ -55,6 +55,8 @@ export const Category = styled.div`
 
 export const ChangePages = styled.div`
   flex: 1;
+  display: flex;
+  gap: 4vw;
 `;
 
 export const Arrow = styled.span`
