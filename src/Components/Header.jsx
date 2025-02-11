@@ -1,5 +1,6 @@
-import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
+import { motion, useAnimation, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -17,20 +18,27 @@ const Nav = styled(motion.nav)`
   padding: 15px 55px;
   color: white;
   z-index: 99;
+  gap: 30px;
   @media (min-width: 640px) {
     flex-direction: row;
     align-items: center;
+    gap: 0px;
   }
 `;
 
 const Col = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  gap: 20px;
   @media (min-width: 640px) {
     flex-direction: row;
+    align-items: center;
+    gap: 0px;
   }
 `;
+
+const SearchCol = styled.div``;
 
 const Logo = styled(motion.svg)`
   margin-right: 50px;
@@ -67,20 +75,20 @@ const Search = styled.form`
   color: white;
   display: flex;
   svg {
+    width: 25px;
     height: 25px;
     cursor: pointer;
+    z-index: 99;
   }
 `;
 
 const Input = styled(motion.input)`
-  transform-origin: center right;
   background-color: transparent;
   padding-left: 30px;
   color: white;
 `;
 
 const Button = styled(motion.button)`
-  transform-origin: center left;
   background-color: black;
   color: gray;
   cursor: pointer;
@@ -132,30 +140,14 @@ export default function Header() {
   const homeMatch = useMatch("/");
   const movieMatch = useMatch("/movie/:id");
   const tVMatch = useMatch("/Tv");
-  const inputAnimation = useAnimation();
-  const buttonAnimation = useAnimation();
   const { scrollY } = useScroll();
   const navAnimation = useAnimation();
   const navigate = useNavigate();
   const [value, setValue] = useState("");
+  const isDeskTop = useMediaQuery({ minWidth: 640 });
 
   const makeSearchInput = () => {
-    if (clicked) {
-      inputAnimation.start({
-        scaleX: 0,
-      });
-      buttonAnimation.start({
-        scaleX: 0,
-      });
-    } else {
-      inputAnimation.start({
-        scaleX: 1,
-      });
-      buttonAnimation.start({
-        scaleX: 1,
-      });
-    }
-    setClicked(!clicked);
+    setClicked((prev) => !prev);
   };
 
   const handleSubmit = (e) => {
@@ -206,11 +198,13 @@ export default function Header() {
           </Item>
         </Items>
       </Col>
-      <Col>
+      <SearchCol>
         <Search onSubmit={handleSubmit}>
           <motion.svg
             onClick={makeSearchInput}
-            animate={{ x: clicked ? 30 : 210 }}
+            animate={
+              isDeskTop ? { x: clicked ? 30 : 210 } : { x: clicked ? 210 : 0 }
+            }
             transition={{ ease: "linear" }}
             fill="currentColor"
             viewBox="0 0 20 20"
@@ -225,21 +219,43 @@ export default function Header() {
           <Input
             initial={{ scaleX: 0 }}
             // animate={{ scaleX: clicked ? 1 : 0 }}
-            animate={inputAnimation}
+            animate={
+              isDeskTop
+                ? {
+                    scaleX: clicked ? 1 : 0,
+                    transformOrigin: clicked ? "center right" : "center right",
+                  }
+                : {
+                    scaleX: clicked ? 1 : 0,
+                    transformOrigin: clicked ? "center left" : "center left",
+                    translateX: clicked ? -30 : 0,
+                  }
+            }
             transition={{ ease: "linear" }}
             placeholder="Search for movie or tv show..."
             onChange={(e) => setValue(e.target.value)}
           />
           <Button
             initial={{ scaleX: 0 }}
-            animate={buttonAnimation}
+            animate={
+              isDeskTop
+                ? {
+                    scaleX: clicked ? 1 : 0,
+                    transformOrigin: clicked ? "center left" : "center left",
+                  }
+                : {
+                    scaleX: clicked ? 1 : 0,
+                    transformOrigin: clicked ? "center right" : "center right",
+                    translateX: clicked ? 10 : 0,
+                  }
+            }
             whileHover={{ color: "#ffffff" }}
             transition={{ ease: "linear" }}
           >
             검색
           </Button>
         </Search>
-      </Col>
+      </SearchCol>
     </Nav>
   );
 }
