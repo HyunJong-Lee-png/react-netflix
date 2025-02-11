@@ -12,7 +12,7 @@ export const Slider = styled.div`
 export const Row = styled(motion.div)`
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   & > a:last-child > div {
     transform-origin: right center !important;
   }
@@ -42,19 +42,19 @@ export const Info = styled(motion.div)`
 `;
 
 export const MovieCategory = styled.div`
-  font-size: 50px;
-  position: relative;
+  font-size: 4vw;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Category = styled.div`
+  flex: 1;
 `;
 
 export const ChangePages = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  display: flex;
-  gap: 50px;
-  height: 100%;
+  flex: 1;
 `;
 
 export const Arrow = styled.span`

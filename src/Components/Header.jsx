@@ -6,7 +6,8 @@ import styled from "styled-components";
 const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   position: fixed;
   width: 100%;
   top: 0;
@@ -16,11 +17,19 @@ const Nav = styled(motion.nav)`
   padding: 15px 55px;
   color: white;
   z-index: 99;
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: center;
+  }
 `;
 
 const Col = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
 `;
 
 const Logo = styled(motion.svg)`

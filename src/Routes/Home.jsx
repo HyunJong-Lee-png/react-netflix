@@ -7,7 +7,7 @@ import { useLocation, useMatch } from "react-router-dom";
 import BigMovieContent from "../Components/BigMovieContent";
 import SliderContainer from "../Components/SliderContainer";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background-color: black;
   position: relative;
 `;
@@ -19,24 +19,25 @@ export const Loader = styled.div`
   color: white;
 `;
 
-const Banner = styled.div`
+export const Banner = styled.div`
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
     url(${(props) => props.bgphoto});
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: contain;
+  background-repeat: repeat-x;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+  width: 100%;
 `;
 
-const Title = styled.h2`
-  font-size: 68px;
+export const Title = styled.h2`
+  font-size: 5vw;
   margin-bottom: 20px;
 `;
 
-const Overview = styled.p`
-  font-size: 28px;
+export const Overview = styled.p`
+  font-size: 1.8vw;
   width: 50%;
 `;
 
@@ -52,7 +53,12 @@ export default function Home() {
       id: 1,
       name: "movie",
     },
-    { data: data1?.results, category: "Top Rateds", id: 2, name: "movie" },
+    {
+      data: data1?.results,
+      category: "Top Rateds",
+      id: 2,
+      name: "movie",
+    },
     { data: data2?.results, category: "Upcoming Movies", id: 3, name: "movie" },
   ];
   const results = data?.results;

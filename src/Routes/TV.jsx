@@ -1,51 +1,12 @@
 import { useQuery } from "react-query";
-import {
-  getAiringTodayTv,
-  getMovies,
-  getPopularTv,
-  getTopRatedMovies,
-  getTopRatedTv,
-  getUpcomingMovies,
-} from "./api";
+import { getAiringTodayTv, getPopularTv, getTopRatedTv } from "./api";
 import styled from "styled-components";
 import { makeImgPath } from "./uitilities";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, useMatch } from "react-router-dom";
 import BigMovieContent from "../Components/BigMovieContent";
 import SliderContainer from "../Components/SliderContainer";
-
-const Wrapper = styled.div`
-  background-color: black;
-  position: relative;
-`;
-const Loader = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh;
-  color: white;
-`;
-
-const Banner = styled.div`
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${(props) => props.bgphoto});
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-`;
-
-const Title = styled.h2`
-  font-size: 68px;
-  margin-bottom: 20px;
-`;
-
-const Overview = styled.p`
-  font-size: 28px;
-  width: 50%;
-`;
+import { Banner, Loader, Overview, Title, Wrapper } from "./Home";
 
 export default function Tv() {
   const { data, isLoading } = useQuery("AiringTvs", getAiringTodayTv);

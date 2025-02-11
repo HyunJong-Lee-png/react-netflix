@@ -2,6 +2,7 @@ import { AnimatePresence } from "framer-motion";
 import {
   Arrow,
   Box,
+  Category,
   ChangePages,
   Info,
   MovieCategory,
@@ -80,7 +81,7 @@ export default function SliderContainer({ data, category, id, name }) {
   return (
     <Slider>
       <MovieCategory>
-        {category}
+        <Category>{category}</Category>
         <ChangePages>
           <Arrow onClick={decreaseIndex}>&larr;</Arrow>
           <Arrow onClick={increaseIndex}>&rarr;</Arrow>
