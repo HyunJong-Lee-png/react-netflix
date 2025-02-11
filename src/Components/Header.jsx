@@ -84,9 +84,9 @@ const Search = styled.form`
 
 const Input = styled(motion.input)`
   background-color: transparent;
-  padding-left: 30px;
   color: white;
   border-radius: 10px;
+  padding-left: 30px;
 `;
 
 const Button = styled(motion.button)`
@@ -231,7 +231,7 @@ export default function Header() {
                     scaleX: clicked ? 1 : 0,
                     transformOrigin: clicked ? "center left" : "center left",
                     translateX: clicked ? -30 : 0,
-                    paddingLeft: clicked ? 0 : 0,
+                    paddingLeft: "2vw",
                     width: clicked && "40vw",
                   }
             }
