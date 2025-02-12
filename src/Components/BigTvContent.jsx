@@ -4,7 +4,7 @@ import { makeImgPath } from "../Routes/uitilities";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { getMovie, getMovieCredit, getMovieVideo } from "../Routes/api";
+import { getOriginalTv, getTv, getTvCredit, getTvVideo } from "../Routes/api";
 import { useMediaQuery } from "react-responsive";
 
 const OverLay = styled(motion.div)`
@@ -127,19 +127,23 @@ export const BigBox = styled(motion.div)`
   position: relative;
 `;
 
-export default function BigMovieContent({ params, name, id }) {
+export default function BigTvContent({ params, name, id }) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
-  const { data: videoData } = useQuery("getMovieVideo", () =>
-    getMovieVideo(params - id)
+  const { data: movieVideo } = useQuery("getTvVideo", () =>
+    getTvVideo(params - id)
   );
-  const { data: movie } = useQuery("getMovie", () => getMovie(params - id));
-  const { data: creditData } = useQuery("getMovieCredit", () =>
-    getMovieCredit(params - id)
+  const { data: movie } = useQuery("getTv", () =>
+    id === 3 ? getTv(params - id) : getOriginalTv(params - id)
   );
-  const videos = videoData?.results;
+  const { data: creditData } = useQuery("getTvCredit", () =>
+    getTvCredit(params - id)
+  );
+  const videos = movieVideo?.results;
   const videoLink = videos?.filter(
-    (video) => video.type === "Trailer" && video.site === "YouTube"
+    (video) =>
+      (video.type === "Trailer" || video.type === "Opening Credits") &&
+      video.site === "YouTube"
   )[0]?.key;
   const isDesktop = useMediaQuery({ minWidth: 640 });
   const credits = creditData?.cast;
@@ -187,8 +191,13 @@ export default function BigMovieContent({ params, name, id }) {
         <BoxInfo>
           <MovieInfoWrapper>
             <div>평점: ⭐{movie?.vote_average}</div>
-            <div>개봉날짜: {movie?.release_date}</div>
-            <div>런닝타임: {movie?.runtime}분</div>
+            <div>
+              방송일자: {movie?.first_air_date}~{movie?.last_air_date}
+            </div>
+            <div>
+              시즌 {movie?.number_of_seasons} ( 총 {movie?.number_of_episodes}{" "}
+              에피소드 )
+            </div>
           </MovieInfoWrapper>
           <GenreWrapper>
             {movie?.genres?.map((movieInfo, index) => (

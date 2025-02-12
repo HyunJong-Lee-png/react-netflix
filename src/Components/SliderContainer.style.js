@@ -12,7 +12,11 @@ export const Slider = styled.div`
 export const Row = styled(motion.div)`
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(
+    ${(props) => (props.isDesktop ? 6 : "auto-fit")},
+    minmax(100px, 1fr)
+  );
+  grid-auto-rows: minmax(300px, 1fr);
   & > a:last-child > div {
     transform-origin: right center !important;
   }
@@ -22,10 +26,10 @@ export const Row = styled(motion.div)`
 `;
 
 export const Box = styled(motion.div)`
+  height: 100%;
   background-image: url(${(props) => props.image});
   background-size: cover;
   background-position: center center;
-  height: 300px;
   position: relative;
 `;
 

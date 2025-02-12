@@ -3,9 +3,10 @@ import { getMovies, getTopRatedMovies, getUpcomingMovies } from "./api";
 import styled from "styled-components";
 import { makeImgPath } from "./uitilities";
 import { AnimatePresence } from "framer-motion";
-import { useLocation, useMatch } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 import BigMovieContent from "../Components/BigMovieContent";
 import SliderContainer from "../Components/SliderContainer";
+import { useState } from "react";
 
 export const Wrapper = styled.div`
   background-color: black;
@@ -32,20 +33,21 @@ export const Banner = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: 5vw;
+  font-size: 4.5vw;
   margin-bottom: 20px;
 `;
 
 export const Overview = styled.p`
-  font-size: 1.8vw;
+  font-size: 1.5vw;
   width: 50%;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 `;
 
 export default function Home() {
   const { data, isLoading } = useQuery("Movies", getMovies);
   const { data: data1 } = useQuery("TopMovies", getTopRatedMovies);
   const { data: data2 } = useQuery("UpcomingMovies", getUpcomingMovies);
-
+  const [id, setId] = useState();
   const movies = [
     {
       data: data?.results,
@@ -63,7 +65,6 @@ export default function Home() {
   ];
   const results = data?.results;
   const movieMatch = useMatch("/movie/:id");
-  const { state } = useLocation();
 
   return (
     <Wrapper>
@@ -76,15 +77,14 @@ export default function Home() {
             <Overview>{results?.[0].overview}</Overview>
           </Banner>
           {movies.map((movie) => (
-            <SliderContainer key={movie.id} {...movie} />
+            <SliderContainer key={movie.id} {...movie} setId={setId} />
           ))}
-
           <AnimatePresence>
             {movieMatch && (
               <BigMovieContent
-                state={state}
                 params={movieMatch.params.id}
                 name="movie"
+                id={id}
               />
             )}
           </AnimatePresence>

@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { makeImgPath } from "../Routes/uitilities";
+import { useMediaQuery } from "react-responsive";
 
 const rowVar = {
   hidden: (custom) => ({
@@ -47,10 +48,12 @@ const infoVar = {
   },
 };
 
-export default function SliderContainer({ data, category, id, name }) {
+export default function SliderContainer({ data, category, id, name, setId }) {
   const [leaving, setLeaving] = useState(false);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(false);
+  const isDesktop = useMediaQuery({ minWidth: 640 });
+
   const increaseIndex = () => {
     if (data) {
       if (leaving) return;
@@ -101,12 +104,13 @@ export default function SliderContainer({ data, category, id, name }) {
           key={index}
           transition={{ type: "spring", duration: 1 }}
           custom={direction}
+          isDesktop={isDesktop}
         >
           {sixMoives?.map((movie) => (
             <Link
               key={movie.id + id}
               to={`/${name}/${movie.id + id}`}
-              state={{ movie }}
+              onClick={() => setId(id)}
             >
               <Box
                 variants={hoverVar}
