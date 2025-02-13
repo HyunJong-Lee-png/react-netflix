@@ -1,12 +1,12 @@
 import { useQuery } from "react-query";
 import { useLocation, useMatch, useSearchParams } from "react-router-dom";
 import { searchKeyword } from "./api";
-import { Loader } from "./Home";
 import SliderContainer from "../Components/SliderContainer";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import BigMovieContent from "../Components/BigMovieContent";
 import { useEffect } from "react";
+import { Loader } from "../Styled-Component/Banner.style";
 
 const Wrapper = styled.div`
   background-color: black;

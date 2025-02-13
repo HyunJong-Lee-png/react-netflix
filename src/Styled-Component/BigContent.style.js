@@ -13,7 +13,7 @@ export const OverLay = styled(motion.div)`
 `;
 
 export const Wrapper = styled(motion.div)`
-  width: 50%;
+  width: 70%;
   position: relative;
   margin-top: 200px;
   border-radius: 20px;
@@ -24,6 +24,7 @@ export const Wrapper = styled(motion.div)`
   }
   @media (min-width: 640px) {
     margin-top: 10%;
+    width: 50%;
   }
   svg {
     position: absolute;
