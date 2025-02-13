@@ -20,8 +20,13 @@ import {
   Wrapper,
 } from "../Styled-Component/BigContent.style";
 
-export default function BigTvContent({ params, name, id, setClickInfo }) {
-  console.log("하잉");
+export default function BigTvContent({
+  params,
+  name,
+  id,
+  setClickInfo,
+  keyword,
+}) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const { data: movieVideo } = useQuery("getTvVideo", () =>
@@ -38,7 +43,7 @@ export default function BigTvContent({ params, name, id, setClickInfo }) {
   );
 
   const videos = movieVideo?.results;
-  console.log(videos);
+
   const videoLink = videos?.filter(
     (video) =>
       (video.type === "Trailer" || video.type === "Opening Credits") &&
@@ -55,9 +60,15 @@ export default function BigTvContent({ params, name, id, setClickInfo }) {
       exit={{ opacity: 0 }}
       onClick={() => {
         if (!id) {
-          setClickInfo((prev) => !prev);
+          setClickInfo && setClickInfo((prev) => !prev);
         }
-        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search");
+        navigate(
+          name === "movie"
+            ? "/"
+            : name === "tv"
+            ? "/tv"
+            : `/search?keyword=${keyword}`
+        );
       }}
     >
       <Wrapper layoutId={Number(params)} onClick={(e) => e.stopPropagation()}>
@@ -111,7 +122,12 @@ export default function BigTvContent({ params, name, id, setClickInfo }) {
             isDesktop={isDesktop}
           />
         </BoxInfo>
-        <ExitIcon name={name} setClickInfo={setClickInfo} id={id} />
+        <ExitIcon
+          name={name}
+          setClickInfo={setClickInfo}
+          id={id}
+          keyword={keyword}
+        />
       </Wrapper>
     </OverLay>
   );

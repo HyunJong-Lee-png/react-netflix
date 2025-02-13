@@ -49,7 +49,14 @@ const infoVar = {
   },
 };
 
-export default function SliderContainer({ data, category, id, name, setId }) {
+export default function SliderContainer({
+  data,
+  category,
+  id,
+  name,
+  setId,
+  keyword,
+}) {
   const [leaving, setLeaving] = useState(false);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(false);
@@ -110,8 +117,14 @@ export default function SliderContainer({ data, category, id, name, setId }) {
           {sixMoives?.map((movie) => (
             <Link
               key={movie.id + id}
-              to={`/${name}/${movie.id + id}`}
-              onClick={() => setId(id)}
+              to={
+                name === "search"
+                  ? `/${name}/${movie.id + id}?keyword=${keyword}`
+                  : `/${name}/${movie.id + id}`
+              }
+              onClick={() => {
+                setId && setId(id);
+              }}
             >
               <Box
                 variants={hoverVar}

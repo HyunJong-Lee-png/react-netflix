@@ -20,14 +20,14 @@ import { BsExclamationCircle } from "react-icons/bs";
 
 export default function Tv() {
   const { data, isLoading } = useQuery("AiringTvs", getAiringTodayTv);
-  const { data: data1 } = useQuery("PopularTvs", getPopularTv);
-  const { data: data2 } = useQuery("TopRatedTvs", getTopRatedTv);
+  const { data: data1 } = useQuery("TopRatedTvs", getTopRatedTv);
+  const { data: data2 } = useQuery("PopularTvs", getPopularTv);
   const [id, setId] = useState();
 
   const movies = [
     { data: data?.results, category: "Airing Today", id: 1, name: "tv" },
-    { data: data1?.results, category: "Popular TV shows", id: 2, name: "tv" },
-    { data: data2?.results, category: "Top Rated TV shows", id: 3, name: "tv" },
+    { data: data1?.results, category: "Top Rated TV shows", id: 2, name: "tv" },
+    { data: data2?.results, category: "Popular TV shows", id: 3, name: "tv" },
   ];
   const results = data?.results;
   const movieMatch = useMatch("/tv/:id");

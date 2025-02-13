@@ -25,9 +25,13 @@ import {
   Wrapper,
 } from "../Styled-Component/BigContent.style";
 
-export default function BigMovieContent({ params, name, id, setClickInfo }) {
-  console.log("하잉", id);
-
+export default function BigMovieContent({
+  params,
+  name,
+  id,
+  setClickInfo,
+  keyword,
+}) {
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const { data: videoData } = useQuery("getMovieVideo", () =>
@@ -56,9 +60,15 @@ export default function BigMovieContent({ params, name, id, setClickInfo }) {
       exit={{ opacity: 0 }}
       onClick={() => {
         if (!id) {
-          setClickInfo((prev) => !prev);
+          setClickInfo && setClickInfo((prev) => !prev);
         }
-        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search");
+        navigate(
+          name === "movie"
+            ? "/"
+            : name === "tv"
+            ? "/tv"
+            : `/search?keyword=${keyword}`
+        );
       }}
     >
       <Wrapper layoutId={Number(params)} onClick={(e) => e.stopPropagation()}>
@@ -107,7 +117,12 @@ export default function BigMovieContent({ params, name, id, setClickInfo }) {
             isDesktop={isDesktop}
           />
         </BoxInfo>
-        <ExitIcon name={name} setClickInfo={setClickInfo} id={id} />
+        <ExitIcon
+          name={name}
+          setClickInfo={setClickInfo}
+          id={id}
+          keyword={keyword}
+        />
       </Wrapper>
     </OverLay>
   );

@@ -180,7 +180,6 @@ export default function Header() {
           variants={logoVar}
           initial="start"
           whileHover="hover"
-          whileTap="hover"
           onClick={() => navigate("/")}
         >
           <Path

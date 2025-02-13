@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 
-export default function ExitIcon({ name, setClickInfo, id }) {
+export default function ExitIcon({ name, setClickInfo, id, keyword }) {
   return (
     <Link
-      to={name === "movie" ? "/" : name === "tv" ? "/tv" : "/search"}
-      onClick={() => (!id ? setClickInfo((prev) => !prev) : {})}
+      to={
+        name === "movie"
+          ? "/"
+          : name === "tv"
+          ? "/tv"
+          : `/search?keyword=${keyword}`
+      }
+      onClick={() => (!id ? setClickInfo && setClickInfo((prev) => !prev) : {})}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

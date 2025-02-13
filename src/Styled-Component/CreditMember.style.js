@@ -5,7 +5,7 @@ export const CreditWrapper = styled.div`
 `;
 
 export const CreditTitle = styled.div`
-  font-size: ${(props) => (props.isDesktop ? "2.1vw" : "3vw")};
+  font-size: ${(props) => (props.isDesktop ? "2.1vw" : "5vw")};
   font-weight: bold;
   color: rgb(239, 155, 155);
   text-align: start;

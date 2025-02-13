@@ -1,12 +1,13 @@
 import { useQuery } from "react-query";
-import { useLocation, useMatch, useSearchParams } from "react-router-dom";
+import { useMatch, useSearchParams } from "react-router-dom";
 import { searchKeyword } from "./api";
 import SliderContainer from "../Components/SliderContainer";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import BigMovieContent from "../Components/BigMovieContent";
-import { useEffect } from "react";
+import { useState } from "react";
 import { Loader } from "../Styled-Component/Banner.style";
+import BigTvContent from "../Components/BigTvContent";
 
 const Wrapper = styled.div`
   background-color: black;
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
 export default function Search() {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword");
-  const { data, isLoading, refetch } = useQuery("Search", () =>
+  const { data, isLoading } = useQuery(["Search", keyword], () =>
     searchKeyword(keyword)
   );
   const movieDatas = data?.results.filter(
@@ -24,17 +25,11 @@ export default function Search() {
   );
   const tvDatas = data?.results.filter((data) => data.media_type === "tv");
   const datas = [
-    { data: movieDatas, category: "Movie Results", id: 1, name: "search" },
-    { data: tvDatas, category: "TV Results", id: 2, name: "search" },
+    { data: movieDatas, category: "Movie Results", id: 2, name: "search" },
+    { data: tvDatas, category: "TV Results", id: 3, name: "search" },
   ];
   const movieMatch = useMatch("/search/:id");
-  const { state } = useLocation();
-
-  useEffect(() => {
-    if (keyword) {
-      refetch();
-    }
-  }, [keyword]);
+  const [id, setId] = useState();
 
   return (
     <Wrapper>
@@ -43,16 +38,30 @@ export default function Search() {
       ) : (
         <>
           {datas.map((data) => (
-            <SliderContainer key={data.id} {...data} />
+            <SliderContainer
+              key={data.id}
+              {...data}
+              setId={setId}
+              keyword={keyword}
+            />
           ))}
           <AnimatePresence>
-            {movieMatch && (
-              <BigMovieContent
-                state={state}
-                params={movieMatch.params.id}
-                name="search"
-              />
-            )}
+            {movieMatch &&
+              (id === 2 ? (
+                <BigMovieContent
+                  params={movieMatch.params.id}
+                  name="search"
+                  id={id}
+                  keyword={keyword}
+                />
+              ) : id === 3 ? (
+                <BigTvContent
+                  params={movieMatch.params.id}
+                  name="search"
+                  id={id}
+                  keyword={keyword}
+                />
+              ) : null)}
           </AnimatePresence>
         </>
       )}
