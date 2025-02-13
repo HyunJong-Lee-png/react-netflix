@@ -46,7 +46,7 @@ export const Info = styled(motion.div)`
 `;
 
 export const MovieCategory = styled.div`
-  font-size: 4vw;
+  font-size: ${(props) => (props.isDesktop ? "4vw" : "7vw")};
   font-weight: bold;
   display: flex;
   align-items: center;

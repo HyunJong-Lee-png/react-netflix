@@ -1,4 +1,9 @@
 import { AnimatePresence } from "framer-motion";
+
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { makeImgPath } from "../Routes/uitilities";
+import { useMediaQuery } from "react-responsive";
 import {
   Arrow,
   Box,
@@ -8,11 +13,7 @@ import {
   MovieCategory,
   Row,
   Slider,
-} from "./SliderContainer.style";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { makeImgPath } from "../Routes/uitilities";
-import { useMediaQuery } from "react-responsive";
+} from "../Styled-Component/SliderContainer.style";
 
 const rowVar = {
   hidden: (custom) => ({
@@ -83,7 +84,7 @@ export default function SliderContainer({ data, category, id, name, setId }) {
 
   return (
     <Slider>
-      <MovieCategory>
+      <MovieCategory isDesktop={isDesktop}>
         <Category>{category}</Category>
         <ChangePages>
           <Arrow onClick={decreaseIndex}>&larr;</Arrow>
