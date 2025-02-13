@@ -57,7 +57,7 @@ export default function Home() {
               <Overview isDesktop={isDesktop}>{results?.[0].overview}</Overview>
               <MoreInfo
                 whileHover={{ backgroundColor: "rgba(255,255,255,0.7)" }}
-                // whileTap={{ backgroundColor: "rgba(255,255,255,0.7)" }}
+                whileTap={{ backgroundColor: "rgba(255,255,255,0.7)" }}
               >
                 <BsExclamationCircle />
                 MoreInfo
