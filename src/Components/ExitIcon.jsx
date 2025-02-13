@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 
-export default function ExitIcon({ name }) {
+export default function ExitIcon({ name, setClickInfo, id }) {
   return (
-    <Link to={name === "movie" ? "/" : name === "tv" ? "/tv" : "/search"}>
+    <Link
+      to={name === "movie" ? "/" : name === "tv" ? "/tv" : "/search"}
+      onClick={() => (!id ? setClickInfo((prev) => !prev) : {})}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"

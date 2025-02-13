@@ -73,16 +73,11 @@ export function getTvVideo(tvId) {
     .catch((err) => console.log(err.message));
 }
 
-export function getTv(tvId) {
+export function getTv(tvId, language = "") {
   return fetch(`
-${BASE_PATH}/tv/${tvId}?api_key=${API_KEY}&language=ko`).then((res) =>
+${BASE_PATH}/tv/${tvId}?api_key=${API_KEY}&${language}`).then((res) =>
     res.json()
   );
-}
-
-export function getOriginalTv(tvId) {
-  return fetch(`
-${BASE_PATH}/tv/${tvId}?api_key=${API_KEY}`).then((res) => res.json());
 }
 
 export function getMovieCredit(movieId) {
@@ -94,5 +89,16 @@ export function getMovieCredit(movieId) {
 export function getTvCredit(tvId) {
   return fetch(
     `${BASE_PATH}/tv/${tvId}/credits?api_key=${API_KEY}&language=ko`
+  ).then((res) => res.json());
+}
+
+export function getSimilarMovies(movieId) {
+  return fetch(`${BASE_PATH}/movie/${movieId}/similar?api_key=${API_KEY}&language=ko
+`).then((res) => res.json());
+}
+
+export function getSimilarTvs(tvId) {
+  return fetch(
+    `${BASE_PATH}/tv/${tvId}/similar?api_key=${API_KEY}&language=ko`
   ).then((res) => res.json());
 }

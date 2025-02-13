@@ -1,9 +1,14 @@
 import { AnimatePresence } from "framer-motion";
 import { makeImgPath } from "../Routes/uitilities";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import { getMovie, getMovieCredit, getMovieVideo } from "../Routes/api";
+import {
+  getMovie,
+  getMovieCredit,
+  getMovieVideo,
+  getSimilarMovies,
+} from "../Routes/api";
 import { useMediaQuery } from "react-responsive";
 import Iframe from "./Iframe";
 import NoExistVideo from "./NoExistVideo";
@@ -20,7 +25,9 @@ import {
   Wrapper,
 } from "../Styled-Component/BigContent.style";
 
-export default function BigMovieContent({ params, name, id }) {
+export default function BigMovieContent({ params, name, id, setClickInfo }) {
+  console.log("하잉", id);
+
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const { data: videoData } = useQuery("getMovieVideo", () =>
@@ -30,21 +37,29 @@ export default function BigMovieContent({ params, name, id }) {
   const { data: creditData } = useQuery("getMovieCredit", () =>
     getMovieCredit(params - id)
   );
+  const { data: similarData } = useQuery("getSimilarMovies", () =>
+    getSimilarMovies(params - id)
+  );
+
   const videos = videoData?.results;
   const videoLink = videos?.filter(
     (video) => video.type === "Trailer" && video.site === "YouTube"
   )[0]?.key;
   const isDesktop = useMediaQuery({ minWidth: 640 });
   const credits = creditData?.cast;
+  const similarMovies = similarData?.results;
 
   return (
     <OverLay
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={() =>
-        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search")
-      }
+      onClick={() => {
+        if (!id) {
+          setClickInfo((prev) => !prev);
+        }
+        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search");
+      }}
     >
       <Wrapper layoutId={Number(params)} onClick={(e) => e.stopPropagation()}>
         <AnimatePresence>
@@ -86,8 +101,13 @@ export default function BigMovieContent({ params, name, id }) {
             credits={credits}
             isDesktop={isDesktop}
           />
+          <CreditMember
+            title={"Similar Movies"}
+            credits={similarMovies}
+            isDesktop={isDesktop}
+          />
         </BoxInfo>
-        <ExitIcon name={name} />
+        <ExitIcon name={name} setClickInfo={setClickInfo} id={id} />
       </Wrapper>
     </OverLay>
   );

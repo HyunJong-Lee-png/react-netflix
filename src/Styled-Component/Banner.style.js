@@ -32,8 +32,7 @@ export const BannerInfo = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: ${(props) => (props.isDesktop ? "4.5vw" : "8vw")};
-  margin-bottom: 20px;
+  font-size: ${(props) => (props.isDesktop ? "4.5vw" : "7.5vw")};
 `;
 
 export const Overview = styled.p`
@@ -51,4 +50,5 @@ export const MoreInfo = styled(motion.span)`
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  font-size: ${(props) => (props.isDesktop ? "1.5vw" : "4vw")};
 `;

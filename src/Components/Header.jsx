@@ -66,7 +66,8 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  &:hover {
+  &:hover,
+  &:active {
     color: ${(props) => props.theme.white.hoverColor};
   }
 `;
@@ -179,6 +180,7 @@ export default function Header() {
           variants={logoVar}
           initial="start"
           whileHover="hover"
+          whileTap="hover"
           onClick={() => navigate("/")}
         >
           <Path
@@ -254,6 +256,7 @@ export default function Header() {
                   }
             }
             whileHover={{ color: "#ffffff" }}
+            whileTap={{ color: "#ffffff" }}
             transition={{ ease: "linear" }}
           >
             검색

@@ -5,6 +5,8 @@ import {
   CreditTitle,
   CreditWrapper,
 } from "../Styled-Component/CreditMember.style";
+import CreditSubTemplate from "./CreditSubTemplate";
+import CreditTemplate from "./CreditTemplate";
 
 export default function CreditMember({ title, credits, isDesktop }) {
   return (
@@ -13,9 +15,9 @@ export default function CreditMember({ title, credits, isDesktop }) {
       <CreditMembersWrapper isDesktop={isDesktop}>
         {credits?.slice(0, 10).map((credit, i) => (
           <CreditInfoWrapper key={i}>
-            {credit.profile_path ? (
+            {credit.profile_path || credit.poster_path ? (
               <img
-                src={makeImgPath(credit.profile_path)}
+                src={makeImgPath(credit.profile_path || credit.poster_path)}
                 style={{ minHeight: "20vh" }}
               />
             ) : (
@@ -30,12 +32,12 @@ export default function CreditMember({ title, credits, isDesktop }) {
                 {"no image :<"}
               </div>
             )}
-            <div style={{ fontSize: isDesktop ? "1.1vw" : "2.8vw" }}>
-              {credit.name}
-            </div>
-            <div style={{ fontSize: isDesktop ? "1.1vw" : "2.5vw" }}>
-              ({credit.character})
-            </div>
+            <CreditTemplate isDesktop={isDesktop}>
+              {credit.name || credit.title}
+            </CreditTemplate>
+            <CreditSubTemplate isDesktop={isDesktop}>
+              {credit.character}
+            </CreditSubTemplate>
           </CreditInfoWrapper>
         ))}
       </CreditMembersWrapper>

@@ -41,6 +41,7 @@ export default function Home() {
   const results = data?.results;
   const movieMatch = useMatch("/movie/:id");
   const isDesktop = useMediaQuery({ minWidth: 640 });
+  const [clickInfo, setClickInfo] = useState(false);
 
   return (
     <Wrapper>
@@ -55,13 +56,27 @@ export default function Home() {
             <BannerInfo>
               <Title isDesktop={isDesktop}>{results?.[0].title}</Title>
               <Overview isDesktop={isDesktop}>{results?.[0].overview}</Overview>
-              <MoreInfo
-                whileHover={{ backgroundColor: "rgba(255,255,255,0.7)" }}
-                whileTap={{ backgroundColor: "rgba(255,255,255,0.7)" }}
-              >
-                <BsExclamationCircle />
-                MoreInfo
-              </MoreInfo>
+              <AnimatePresence>
+                {clickInfo ? (
+                  <BigMovieContent
+                    params={results?.[0].id}
+                    name={"movie"}
+                    id={0}
+                    setClickInfo={setClickInfo}
+                  />
+                ) : (
+                  <MoreInfo
+                    whileHover={{ backgroundColor: "rgba(255,255,255,0.7)" }}
+                    whileTap={{ backgroundColor: "rgba(255,255,255,0.7)" }}
+                    onClick={() => setClickInfo((prev) => !prev)}
+                    layoutId={results?.[0].id}
+                    isDesktop={isDesktop}
+                  >
+                    <BsExclamationCircle />
+                    MoreInfo
+                  </MoreInfo>
+                )}
+              </AnimatePresence>
             </BannerInfo>
           </Banner>
           {movies.map((movie) => (

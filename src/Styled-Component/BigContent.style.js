@@ -10,6 +10,7 @@ export const OverLay = styled(motion.div)`
   display: flex;
   justify-content: center;
   backdrop-filter: blur(5px);
+  z-index: 98;
 `;
 
 export const Wrapper = styled(motion.div)`

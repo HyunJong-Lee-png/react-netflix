@@ -1,7 +1,7 @@
 export const blackTheme = {
-  red: 'red',
-  white:{
-    darker:'white',
-    hoverColor:'#EADBC8'
-  }
-}
+  red: "red",
+  white: {
+    darker: "white",
+    hoverColor: "#cca16d",
+  },
+};

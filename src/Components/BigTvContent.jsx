@@ -1,9 +1,9 @@
 import { AnimatePresence } from "framer-motion";
 import { makeImgPath } from "../Routes/uitilities";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
-import { getOriginalTv, getTv, getTvCredit, getTvVideo } from "../Routes/api";
+import { getSimilarTvs, getTv, getTvCredit, getTvVideo } from "../Routes/api";
 import { useMediaQuery } from "react-responsive";
 import Iframe from "./Iframe";
 import NoExistVideo from "./NoExistVideo";
@@ -20,19 +20,25 @@ import {
   Wrapper,
 } from "../Styled-Component/BigContent.style";
 
-export default function BigTvContent({ params, name, id }) {
+export default function BigTvContent({ params, name, id, setClickInfo }) {
+  console.log("하잉");
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
   const { data: movieVideo } = useQuery("getTvVideo", () =>
     getTvVideo(params - id)
   );
   const { data: movie } = useQuery("getTv", () =>
-    id === 3 ? getTv(params - id) : getOriginalTv(params - id)
+    id === 3 ? getTv(params - id, "language=ko") : getTv(params - id)
   );
   const { data: creditData } = useQuery("getTvCredit", () =>
     getTvCredit(params - id)
   );
+  const { data: similarData } = useQuery("getSimilarTvs", () =>
+    getSimilarTvs(params - id)
+  );
+
   const videos = movieVideo?.results;
+  console.log(videos);
   const videoLink = videos?.filter(
     (video) =>
       (video.type === "Trailer" || video.type === "Opening Credits") &&
@@ -40,15 +46,19 @@ export default function BigTvContent({ params, name, id }) {
   )[0]?.key;
   const isDesktop = useMediaQuery({ minWidth: 640 });
   const credits = creditData?.cast;
+  const similarTvs = similarData?.results;
 
   return (
     <OverLay
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={() =>
-        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search")
-      }
+      onClick={() => {
+        if (!id) {
+          setClickInfo((prev) => !prev);
+        }
+        navigate(name === "movie" ? "/" : name === "tv" ? "/tv" : "/search");
+      }}
     >
       <Wrapper layoutId={Number(params)} onClick={(e) => e.stopPropagation()}>
         <AnimatePresence>
@@ -95,8 +105,13 @@ export default function BigTvContent({ params, name, id }) {
             credits={credits}
             isDesktop={isDesktop}
           />
+          <CreditMember
+            title={"Similar Movies"}
+            credits={similarTvs}
+            isDesktop={isDesktop}
+          />
         </BoxInfo>
-        <ExitIcon name={name} />
+        <ExitIcon name={name} setClickInfo={setClickInfo} id={id} />
       </Wrapper>
     </OverLay>
   );
