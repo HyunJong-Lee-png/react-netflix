@@ -221,6 +221,7 @@ export default function Header() {
             ></path>
           </motion.svg>
           <Input
+            onFocus={() => window.scrollTo(0, 0)}
             initial={{ scaleX: 0 }}
             animate={
               isDeskTop
