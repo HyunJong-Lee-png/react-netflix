@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Slider = styled.div`
   margin-top: ${(props) =>
-    props.isDesktop ? "-100px" : props.id === 1 ? "-550px" : "-100px"};
+    props.isDesktop ? "-100px" : props.id === 1 ? "-400px" : "-100px"};
   padding-bottom: 200px;
   display: flex;
   flex-direction: column;
