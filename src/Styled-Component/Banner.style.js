@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   background-color: black;
   position: relative;
+  min-height: 100%;
 `;
 export const Loader = styled.div`
   display: flex;
