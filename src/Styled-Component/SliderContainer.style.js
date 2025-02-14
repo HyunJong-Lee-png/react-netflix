@@ -8,7 +8,6 @@ export const Slider = styled.div`
   flex-direction: column;
   gap: 40px;
   position: relative;
-  top: ${(props) => (props.isDesktop ? "0" : "-500px")};
 `;
 
 export const Row = styled(motion.div)`
