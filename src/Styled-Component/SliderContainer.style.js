@@ -2,11 +2,13 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Slider = styled.div`
-  margin-top: -100px;
+  margin-top: ${(props) =>
+    props.isDesktop ? "-100px" : props.id === 1 ? "-550px" : "-100px"};
   padding-bottom: 200px;
   display: flex;
   flex-direction: column;
   gap: 40px;
+  position: relative;
 `;
 
 export const Row = styled(motion.div)`

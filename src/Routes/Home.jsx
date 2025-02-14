@@ -49,11 +49,8 @@ export default function Home() {
         <Loader>isLoading..</Loader>
       ) : (
         <>
-          <Banner
-            bgphoto={makeImgPath(results?.[0].backdrop_path || "")}
-            isDesktop={isDesktop}
-          >
-            <BannerInfo>
+          <Banner bgphoto={makeImgPath(results?.[0].backdrop_path || "")}>
+            <BannerInfo isDesktop={isDesktop}>
               <Title isDesktop={isDesktop}>{results?.[0].title}</Title>
               <Overview isDesktop={isDesktop}>{results?.[0].overview}</Overview>
               <AnimatePresence>

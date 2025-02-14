@@ -160,19 +160,14 @@ export default function Header() {
 
   useEffect(() => {
     const unSubscribe = scrollY.on("change", () => {
-      if (isDeskTop) {
-        if (scrollY.get() > 80) {
-          navAnimation.start("end");
-        } else {
-          navAnimation.start("start");
-        }
+      if (scrollY.get() > 80) {
+        navAnimation.start("end");
+      } else {
+        navAnimation.start("start");
       }
     });
-    if (!isDeskTop) {
-      navAnimation.start("end");
-    }
     return unSubscribe && unSubscribe;
-  }, [isDeskTop]);
+  }, []);
 
   return (
     <Nav variants={navVar} animate={navAnimation} initial={"start"}>

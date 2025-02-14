@@ -90,7 +90,7 @@ export default function SliderContainer({
     .slice(index * offset, index * offset + offset);
 
   return (
-    <Slider>
+    <Slider isDesktop={isDesktop} id={id}>
       <MovieCategory isDesktop={isDesktop}>
         <Category>{category}</Category>
         <ChangePages>

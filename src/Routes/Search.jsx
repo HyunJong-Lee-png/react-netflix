@@ -14,6 +14,24 @@ const Wrapper = styled.div`
   padding-top: 200px;
 `;
 
+const SearchResults = styled.div`
+  font-size: 5vw;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 200px;
+  @media (min-width: 640px) {
+    font-size: 3vw;
+  }
+`;
+
+const SearchWord = styled.span`
+  color: tomato;
+  font-size: 9vw;
+  @media (min-width: 640px) {
+    font-size: 5vw;
+  }
+`;
+
 export default function Search() {
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword");
@@ -37,6 +55,10 @@ export default function Search() {
         <Loader>is Loading...</Loader>
       ) : (
         <>
+          <SearchResults>
+            <SearchWord>"{keyword}"</SearchWord>
+            Search Results...
+          </SearchResults>
           {datas.map((data) => (
             <SliderContainer
               key={data.id}

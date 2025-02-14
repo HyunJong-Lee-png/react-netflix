@@ -3,11 +3,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   background-color: black;
-  position: absolute;
-  top: 146px;
-  @media (min-width: 640px) {
-    top: 0;
-  }
+  position: relative;
 `;
 export const Loader = styled.div`
   display: flex;
@@ -25,22 +21,26 @@ export const Banner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
+  position: relative;
 `;
 
 export const BannerInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  position: ${(props) => (props.isDesktop ? "static" : "absolute")};
+  top: ${(props) => (props.isDesktop ? "" : "150px")};
 `;
 
 export const Title = styled.h2`
-  font-size: ${(props) => (props.isDesktop ? "4.5vw" : "7.5vw")};
+  font-size: ${(props) => (props.isDesktop ? "3.5vw" : "7.5vw")};
 `;
 
 export const Overview = styled.p`
-  font-size: ${(props) => (props.isDesktop ? "1.5vw" : "4vw")};
+  display: ${(props) => (props.isDesktop ? "block" : "none")};
+  font-size: 1.3vw;
   width: 50%;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 `;
