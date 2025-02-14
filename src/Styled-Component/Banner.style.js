@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   background-color: black;
   position: relative;
+  padding-top: ${(props) => (props.isDesktop ? "0" : "200px")};
 `;
 export const Loader = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ export const Banner = styled.div`
   height: 100vh;
   width: 100%;
   position: relative;
+  top: ${(props) => (props.isDesktop ? "0" : "-200px")};
 `;
 
 export const BannerInfo = styled.div`
