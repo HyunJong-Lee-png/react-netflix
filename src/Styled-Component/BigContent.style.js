@@ -16,7 +16,7 @@ export const OverLay = styled(motion.div)`
 export const Wrapper = styled(motion.div)`
   width: 70%;
   position: relative;
-  margin-top: 150px;
+  margin-top: 170px;
   border-radius: 20px;
   overflow: scroll;
   overscroll-behavior: contain;
