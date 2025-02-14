@@ -3,8 +3,11 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   background-color: black;
-  position: relative;
-  min-height: 100%;
+  position: absolute;
+  top: 146px;
+  @media (min-width: 640px) {
+    top: 0;
+  }
 `;
 export const Loader = styled.div`
   display: flex;

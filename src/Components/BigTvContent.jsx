@@ -33,7 +33,7 @@ export default function BigTvContent({
     getTvVideo(params - id)
   );
   const { data: movie } = useQuery("getTv", () =>
-    id === 3 ? getTv(params - id, "language=ko") : getTv(params - id)
+    id === 2 ? getTv(params - id, "language=ko") : getTv(params - id)
   );
   const { data: creditData } = useQuery("getTvCredit", () =>
     getTvCredit(params - id)

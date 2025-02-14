@@ -12,7 +12,6 @@ const Nav = styled(motion.nav)`
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: black;
   font-size: 15px;
   font-weight: 400;
   padding: 15px 55px;
@@ -160,17 +159,23 @@ export default function Header() {
   };
 
   useEffect(() => {
-    scrollY.on("change", () => {
-      if (scrollY.get() > 80) {
-        navAnimation.start("end");
-      } else {
-        navAnimation.start("start");
+    const unSubscribe = scrollY.on("change", () => {
+      if (isDeskTop) {
+        if (scrollY.get() > 80) {
+          navAnimation.start("end");
+        } else {
+          navAnimation.start("start");
+        }
       }
     });
-  }, []);
+    if (!isDeskTop) {
+      navAnimation.start("end");
+    }
+    return unSubscribe && unSubscribe;
+  }, [isDeskTop]);
 
   return (
-    <Nav variants={navVar} animate={navAnimation} initial="start">
+    <Nav variants={navVar} animate={navAnimation} initial={"start"}>
       <Col>
         <Logo
           xmlns="http://www.w3.org/2000/svg"
