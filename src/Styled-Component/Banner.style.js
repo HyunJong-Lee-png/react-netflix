@@ -22,7 +22,7 @@ export const Banner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  height: ${(props) => (props.isDesktop ? "100vh" : "50vh")};
   width: 100%;
   position: relative;
   top: ${(props) => (props.isDesktop ? "0" : "-200px")};
