@@ -35,12 +35,15 @@ export default function Tv() {
   const [clickInfo, setClickInfo] = useState(false);
 
   return (
-    <Wrapper>
+    <Wrapper isDesktop={isDesktop}>
       {isLoading ? (
         <Loader>isLoading..</Loader>
       ) : (
         <>
-          <Banner bgphoto={makeImgPath(results?.[0].backdrop_path || "")}>
+          <Banner
+            bgphoto={makeImgPath(results?.[0].backdrop_path || "")}
+            isDesktop={isDesktop}
+          >
             <BannerInfo isDesktop={isDesktop}>
               <Title isDesktop={isDesktop}>{results?.[0].name}</Title>
               <Overview isDesktop={isDesktop}>{results?.[0].overview}</Overview>
